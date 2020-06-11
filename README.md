@@ -5,6 +5,7 @@
 1. Because we have to let Program X be only execute by UserX, we set the group of Program X to UserX (`sudo chgrp UserX`) and do `sudo chmod 070 ./X`. 
 2. Since /var/X/ and /var/Y/ are only allowed written by root, we have to run the command `sudo chmod u+s ./X`. So that, we can create file under /var/X and /var/Y.
 3. Final result:
+
 ![](https://i.imgur.com/RumhX00.png)
 
 We use the below apparmor profile for Program X.
@@ -23,6 +24,7 @@ We use the below apparmor profile for Program X.
 We have to load/parse the profile first.
 `sudo apparmor_parser -r /etc/apparmor.d/usr.local.bin.px.X`
 Then we execute `./X` as UserX and get the result:
+
 ![](https://i.imgur.com/3Bcv6sF.png)
 
 We can see from the above result that we do achieve the scenario.
@@ -48,13 +50,17 @@ We have to load/parse the profile first.
 `sudo apparmor_parser -r /etc/apparmor.d/var.Y.Y`
 
 Then we execute `./X` and get the result:
+
 ![](https://i.imgur.com/ssEjLOO.png)
 
 To make sure it really work, let's delete some rules in the file and see how it goes.
 
 1. delete `/var/Y/** rw,` and `/var/Y rw,`
+
 ![](https://i.imgur.com/iLUacTN.png)
+
 2. delete `deny network,` and add `network,`
+
 ![](https://i.imgur.com/5qlft78.png)
 
 We can see from the above result that we do achieve the scenario.
