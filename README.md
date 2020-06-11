@@ -2,7 +2,7 @@
 ## My Solution
 ### Program X
 
-1. Because we have to let Program X be only execute by UserX, we set the group of Program X to UserX (`sudo chgrp UserX`) and do `sudo chmod 070 ./X`. 
+1. Because we have to let Program X be only execute by UserX, we set the group of Program X to UserX (`sudo chgrp UserX ./X`) and do `sudo chmod 070 ./X`. 
 2. Since /var/X/ and /var/Y/ are only allowed written by root, we have to run the command `sudo chmod u+s ./X`. So that, we can create file under /var/X and /var/Y.
 3. Final result:
 
@@ -67,3 +67,7 @@ We can see from the above result that we do achieve the scenario.
 Here are something to dicuss.
 1. Because the profile doesn't allow any other directories or files, Program Y can't access those not been allow. We don't need other deny rule to restrict it.
 2. Since Program Y may need a bunch of .so shared libraries, we do `#include <abstractions/base>` to make sure it can work properly.
+
+### Combine both
+
+![](https://i.imgur.com/jGqgBfO.png)
